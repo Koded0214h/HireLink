@@ -4,6 +4,9 @@ import Login from "./Auth/Login/Login";
 import Signup from "./Auth/Signup/Signup";
 import AllJobs from "./BrowseJobs/AllJobs";
 import EachJob from "./EachJobs/EachJob";
+// added jobseeker dashboard and myapplication (under jobseeker features)
+import JobSeekerDashboard  from "./Dashboard/JobSeeker/JobSeekerDashboard";
+import MyApplications from "./Applications/MyApplications";
 
 function App() {
   const routes = [
@@ -12,6 +15,10 @@ function App() {
     { path: "/signup", element: <Signup /> },
     { path: "/jobs", element: <AllJobs /> },
     { path: "/jobs/:id", element: <EachJob /> },
+
+    // added jobseeker dashboard and application route.
+    { path: "/dashboard", element: <JobSeekerDashboard /> },
+    { path: "/applications", element: <MyApplications /> },
   ];
 
   return (
