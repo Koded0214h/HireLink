@@ -7,6 +7,9 @@ import {
   ChevronLeft,
 } from "lucide-react";
 
+import { Header } from "../Components/Header.tsx";
+import { Footer } from "../Components/Footer.tsx";
+
 const jobs = [
   {
     id: 1,
@@ -94,7 +97,6 @@ const jobs = [
   },
 ];
 
-
 const EachJob = () => {
   const { id } = useParams<{ id: string }>();
 
@@ -102,80 +104,94 @@ const EachJob = () => {
 
   if (!job) {
     return (
-      <div className="max-w-4xl mx-auto px-6 py-20 text-center">
-        <h2 className="text-2xl font-bold text-slate-800">Job not found</h2>
-        <Link to="/" className="text-blue-600 hover:underline mt-4 block">
-          Go back home
-        </Link>
+      <div className="flex flex-col min-h-screen bg-white">
+        <Header />
+        <div className="grow flex items-center justify-center">
+          <div className="max-w-4xl mx-auto px-6 text-center">
+            <h2 className="text-2xl font-bold text-slate-800">Job not found</h2>
+            <Link to="/" className="text-blue-600 hover:underline mt-4 block">
+              Go back home
+            </Link>
+          </div>
+        </div>
+        <Footer />
       </div>
     );
   }
 
   return (
-    <div className="bg-white min-h-screen pb-20">
-      <div className="max-w-4xl mx-auto px-6 py-10">
-        <Link
-          to="/browse"
-          className="inline-flex items-center text-slate-500 hover:text-blue-600 mb-8 transition-colors font-medium"
-        >
-          <ChevronLeft className="w-5 h-5 mr-1" />
-          Back to Jobs
-        </Link>
+    <div className="flex flex-col min-h-screen bg-white">
+      <Header />
 
-        <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-slate-900 mb-2">
-              {job.title}
-            </h1>
-            <p className="text-xl text-slate-500 font-medium">{job.company}</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8 mb-8 pb-8 border-b border-slate-100">
-            <div className="flex items-center text-slate-500">
-              <MapPin className="w-5 h-5 mr-3 text-slate-400" />
-              {job.location}
-            </div>
+      <main className="grow pb-20">
+        <div className="max-w-4xl mx-auto px-6 py-10">
+          <Link
+            to="/browse"
+            className="inline-flex items-center text-slate-500 hover:text-blue-600 mb-8 transition-colors font-medium"
+          >
+            <ChevronLeft className="w-5 h-5 mr-1" />
+            Back to Jobs
+          </Link>
 
-            <div className="flex items-center text-slate-500">
-              <Briefcase className="w-5 h-5 mr-3 text-slate-400" />
-              {job.type}
+          <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm">
+            <div className="mb-8">
+              <h1 className="text-3xl font-bold text-slate-900 mb-2">
+                {job.title}
+              </h1>
+              <p className="text-xl text-slate-500 font-medium">
+                {job.company}
+              </p>
             </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8 mb-8 pb-8 border-b border-slate-100">
+              <div className="flex items-center text-slate-500">
+                <MapPin className="w-5 h-5 mr-3 text-slate-400" />
+                {job.location}
+              </div>
 
-            <div className="flex items-center text-slate-500">
-              <DollarSign className="w-5 h-5 mr-3 text-slate-400" />
-              {job.salary}
-            </div>
+              <div className="flex items-center text-slate-500">
+                <Briefcase className="w-5 h-5 mr-3 text-slate-400" />
+                {job.type}
+              </div>
 
-            <div className="flex items-center text-slate-500">
-              <Calendar className="w-5 h-5 mr-3 text-slate-400" />
-              Posted {job.posted}
+              <div className="flex items-center text-slate-500">
+                <DollarSign className="w-5 h-5 mr-3 text-slate-400" />
+                {job.salary}
+              </div>
+
+              <div className="flex items-center text-slate-500">
+                <Calendar className="w-5 h-5 mr-3 text-slate-400" />
+                Posted {job.posted}
+              </div>
             </div>
-          </div>
-          <div className="flex gap-3 mb-10">
-            <span className="px-4 py-1.5 rounded-full bg-slate-100 text-slate-600 font-medium text-sm border border-slate-200">
-              {job.type}
-            </span>
-            <span className="px-4 py-1.5 rounded-full bg-emerald-50 text-emerald-600 font-medium text-sm border border-emerald-100">
-              {job.status}
-            </span>
-          </div>
-          <div className="mb-10">
-            <h3 className="text-xl font-bold text-slate-900 mb-4">
-              Job Description
-            </h3>
-            <p className="text-slate-600 leading-relaxed text-lg">
-              {job.description}
-            </p>
-          </div>
-          <div>
-            <h3 className="text-xl font-bold text-slate-900 mb-4">
-              Requirements
-            </h3>
-            <p className="text-slate-600 leading-relaxed text-lg">
-              {job.requirements}
-            </p>
+            <div className="flex gap-3 mb-10">
+              <span className="px-4 py-1.5 rounded-full bg-slate-100 text-slate-600 font-medium text-sm border border-slate-200">
+                {job.type}
+              </span>
+              <span className="px-4 py-1.5 rounded-full bg-emerald-50 text-emerald-600 font-medium text-sm border border-emerald-100">
+                {job.status}
+              </span>
+            </div>
+            <div className="mb-10">
+              <h3 className="text-xl font-bold text-slate-900 mb-4">
+                Job Description
+              </h3>
+              <p className="text-slate-600 leading-relaxed text-lg">
+                {job.description}
+              </p>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">
+                Requirements
+              </h3>
+              <p className="text-slate-600 leading-relaxed text-lg">
+                {job.requirements}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
+      </main>
+
+      <Footer />
     </div>
   );
 };

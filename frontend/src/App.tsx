@@ -1,9 +1,10 @@
-import { Route, Routes, type RouteObject } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import LandingPage from "./LandingPg/LandingPage";
 import Login from "./Auth/Login/Login";
 import Signup from "./Auth/Signup/Signup";
 import AllJobs from "./BrowseJobs/AllJobs";
 import EachJob from "./EachJobs/EachJob";
+
 // added jobseeker dashboard and myapplication (under jobseeker features)
 import JobSeekerDashboard from "./Dashboard/JobSeeker/JobSeekerDashboard";
 import MyApplications from "./Applications/MyApplications";
@@ -17,12 +18,19 @@ function App() {
     { path: "/signup", element: <Signup /> },
     { path: "/jobs", element: <AllJobs /> },
     { path: "/jobs/:id", element: <EachJob /> },
-
     // added jobseeker dashboard and application route.
     { path: "/dashboard", element: <JobSeekerDashboard /> },
     { path: "/applications", element: <MyApplications /> },
 
     //employer routes
+    {
+      path: "/bookmarks",
+      element: (
+        <div className="p-20 text-center">Bookmarks Page Coming Soon</div>
+      ),
+    },
+
+    // Employer routes
     {
       path: "/employer",
       element: <EmployerLayout />,
@@ -44,7 +52,6 @@ function App() {
         </Route>
       ))}
     </Routes>
-
   );
 }
 
