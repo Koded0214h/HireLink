@@ -53,4 +53,75 @@ const newJobseeker = await  Jobseeker.create({
 
 
 
+// Get jobseeker profile
+router.get("/profile", authenticate, async (req: Request, res: Response) => {
+    const { id, role } = req.user;
+
+    if (role !== "jobseeker") {
+        return res.status(403).json({
+            message: "Forbidden: Only jobseekers can view their profile"
+        });
+    }
+
+    try {
+        const jobseeker = await Jobseeker.findOne({ 
+            where: { user_Id: id },
+            include: [{
+                model: User,
+                as: 'user',
+                attributes: ['email', 'firstName', 'lastName']
+            }]
+        });
+
+        if (!jobseeker) {
+            return res.status(404).json({
+                message: "Jobseeker profile not found"
+            });
+        }
+
+        return res.status(200).json({
+            message: "Jobseeker profile retrieved successfully",
+            jobseeker
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal server error",
+            error
+        });
+    }
+});
+
+// Update jobseeker profile
+router.put("/profile", authenticate, async (req: Request, res: Response) => {
+    const { id, role } = req.user;
+
+    if (role !== "jobseeker") {
+        return res.status(403).json({
+            message: "Forbidden: Only jobseekers can update their profile"
+        });
+    }
+
+    try {
+        const jobseeker = await Jobseeker.findOne({ where: { user_Id: id } });
+        
+        if (!jobseeker) {
+            return res.status(404).json({
+                message: "Jobseeker profile not found"
+            });
+        }
+
+        await jobseeker.update(req.body);
+
+        return res.status(200).json({
+            message: "Jobseeker profile updated successfully",
+            jobseeker
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal server error",
+            error
+        });
+    }
+});
+
 export default router;

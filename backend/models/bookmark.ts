@@ -3,17 +3,13 @@ import sequelize from "../config/sequelize";
 
 class Bookmark extends Model {
     bookmark_Id!: number;
-     job_Id!: number;
-     jobseeker_Id!: number;
-     resume_Id!: number;
-     status!: "Applied" | "Under Review" | "Interview Scheduled" | "Offered" | "Rejected";
-     applied_at!: Date;
-     bookmarked_at!: Date;
+    job_Id!: number;
+    jobseeker_Id!: number;
+    createdAt!: Date;
 }
 
 Bookmark.init(
     {
-        // Model attributes are defined 
         bookmark_Id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -24,30 +20,26 @@ Bookmark.init(
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'job', // name of Target model
-                key: 'job_Id', // key in Target model that we're referencing
+                model: 'job',
+                key: 'job_Id',
             },
-
         },
         jobseeker_Id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'jobseeker', // name of Target model
-                key: 'jobseeker_Id', // key in Target model that we're referencing
+                model: 'jobseeker',
+                key: 'jobseeker_Id',
             },
-         
         },
-
     },
-  {
-    // Other model options go here
-    sequelize, // We need to pass the connection instance
-      modelName: "Bookmark", // We need to choose the model name
-      timestamps: true,
-      updatedAt: false,
-     tableName: "bookmark"
-  }
+    {
+        sequelize,
+        modelName: "Bookmark",
+        timestamps: true,
+        updatedAt: false,
+        tableName: "bookmarks"
+    }
 );
 
 export default Bookmark;

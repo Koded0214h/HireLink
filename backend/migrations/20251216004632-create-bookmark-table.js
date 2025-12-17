@@ -13,31 +13,29 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
-    },
-    job_Id: {
+      },
+      job_Id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-            model: 'job', // name of Target model
-            key: 'job_Id', // key in Target model that we're referencing
+          model: 'job',
+          key: 'job_Id',
         },
-
-    },
-    jobseeker_Id: {
+      },
+      jobseeker_Id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-            model: 'jobseeker', // name of Target model
-            key: 'jobseeker_Id', // key in Target model that we're referencing
+          model: 'jobseeker',
+          key: 'jobseeker_Id',
         },
-     
-    },
-    created_at: {
+      },
+      createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.NOW,
+      },
     },
-},
     );
 
   },

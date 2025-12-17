@@ -94,6 +94,7 @@ const jobs = [
   },
 ];
 
+
 const EachJob = () => {
   const { id } = useParams<{ id: string }>();
 
