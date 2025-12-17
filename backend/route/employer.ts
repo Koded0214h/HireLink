@@ -57,4 +57,75 @@ router.post("/profile",authenticate, async (req: Request, res: Response) => {
 
 
 
+// Get employer profile
+router.get("/profile", authenticate, async (req: Request, res: Response) => {
+    const { id, role } = req.user;
+
+    if (role !== "employer") {
+        return res.status(403).json({
+            message: "Forbidden: Only employers can view their profile"
+        });
+    }
+
+    try {
+        const employer = await Employer.findOne({ 
+            where: { user_Id: id },
+            include: [{
+                model: User,
+                as: 'user',
+                attributes: ['email', 'firstName', 'lastName']
+            }]
+        });
+
+        if (!employer) {
+            return res.status(404).json({
+                message: "Employer profile not found"
+            });
+        }
+
+        return res.status(200).json({
+            message: "Employer profile retrieved successfully",
+            employer
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal server error",
+            error
+        });
+    }
+});
+
+// Update employer profile
+router.put("/profile", authenticate, async (req: Request, res: Response) => {
+    const { id, role } = req.user;
+
+    if (role !== "employer") {
+        return res.status(403).json({
+            message: "Forbidden: Only employers can update their profile"
+        });
+    }
+
+    try {
+        const employer = await Employer.findOne({ where: { user_Id: id } });
+        
+        if (!employer) {
+            return res.status(404).json({
+                message: "Employer profile not found"
+            });
+        }
+
+        await employer.update(req.body);
+
+        return res.status(200).json({
+            message: "Employer profile updated successfully",
+            employer
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal server error",
+            error
+        });
+    }
+});
+
 export default router;
