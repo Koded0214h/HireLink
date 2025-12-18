@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search, MapPin, Briefcase, DollarSign } from "lucide-react";
 
 import { Header } from "../Components/Header";
 import { Footer } from "../Components/Footer";
-
 
 const jobs = [
   {
@@ -70,8 +69,6 @@ const jobs = [
 ];
 
 const AllJobs = () => {
-
-
   const navigate = useNavigate();
 
   const [searchTerm, setSearchTerm] = useState("");
