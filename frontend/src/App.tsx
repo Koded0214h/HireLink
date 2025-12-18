@@ -5,6 +5,7 @@ import Signup from "./Auth/Signup/Signup";
 import AllJobs from "./BrowseJobs/AllJobs";
 import EachJob from "./EachJobs/EachJob";
 
+
 // added jobseeker dashboard and myapplication (under jobseeker features)
 import JobSeekerDashboard from "./Dashboard/JobSeeker/JobSeekerDashboard";
 import MyApplications from "./Applications/MyApplications";

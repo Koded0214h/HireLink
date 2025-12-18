@@ -98,7 +98,9 @@ const JobSeekerDashboard: React.FC = () => {
         </div>
 
         {/* Recent Applications */}
-        <RecentApplications applications={recentApplications} />
+        <div className='mb-6'>
+          <RecentApplications applications={recentApplications} />
+        </div>
       </main>
 
       {/* Footer */}

@@ -25,7 +25,7 @@ export const RecentApplications: React.FC<RecentApplicationsProps> = ({ applicat
   };
 
   return (
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+      <div className="bg-white rounded-lg border border-gray-200">
           {/* Header Section */}
           <div className="px-6 py-5 flex items-center justify-between">
               <h2 className="text-base font-semibold text-gray-900">Recent Applications</h2>
