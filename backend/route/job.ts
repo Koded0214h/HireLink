@@ -270,5 +270,45 @@ router.get("/my-jobs", authenticate, async (req: Request, res: Response) => {
         });
     }
 });
+//patch to update job status
+router.patch("/status/:id", authenticate, async (req: Request, res: Response) => {
+    const { id: userId, role } = req.user;
+    const { id } = req.params;
+    const { isACTIVE } = req.body;
+
+    if (role !== "employer") {
+        return res.status(403).json({
+            message: "Forbidden: Only employers can update job status"
+        });
+    }
+
+    try {
+        const job = await Job.findByPk(id);
+        if (!job) {
+            return res.status(404).json({
+                message: "Job not found"
+            });
+        }
+
+        if (job.employer_Id !== userId) {
+            return res.status(403).json({
+                message: "Forbidden: You can only update your own jobs"
+            });
+        }
+
+        job.isACTIVE=isACTIVE;
+        await job.save();
+
+        return res.status(200).json({
+            message: "Job status updated successfully",
+            job
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal server error",
+            error
+        });
+}
+});
 
 export default router;
