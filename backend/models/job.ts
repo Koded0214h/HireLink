@@ -5,12 +5,15 @@ class Job extends Model {
    job_Id!: number;
    employer_Id!: number;
     title!: string;
+    company_name!: string;
     description!: string;
-    job_type!: "Full-time" | "Part-time" | "Remote" | "Contract"| "Internship";
+    location!: string;
+    job_type!: "Full-time" | "Part-time" | "Remote" | "Contract"| "Internship"|"Temporary";
     salary_min!: number;
     salary_max!: number;
-    location!: string;
-    status!: "Open" | "Closed";
+    location_type!:"On-site" | "Remote" | "Hybrid";
+    requirements!: string;
+    isACTIVE!: "Open" | "Closed";
     
 
 }

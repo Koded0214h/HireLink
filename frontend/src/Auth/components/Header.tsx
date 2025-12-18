@@ -1,16 +1,12 @@
+// Component header for login and sign up page.
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Briefcase, User, LogOut, Menu, X } from "lucide-react";
+import { Briefcase, User, Menu, X } from "lucide-react";
 
-interface HeaderProps {
-  userName?: string;
-  userEmail?: string;
-}
 
-export const Header: React.FC<HeaderProps> = ({
-  userName = "John Doe",
-  userEmail = "user@example.com",
-}) => {
+
+export const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -32,45 +28,24 @@ export const Header: React.FC<HeaderProps> = ({
             <nav className="flex items-center gap-6">
               <Link
                 to="/jobs"
-                className="px-3 py-1.5 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-teal-500 hover:text-white transition text-sm font-medium whitespace-nowrap"
+                className="px-3 py-2 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-teal-500 hover:text-white transition text-sm font-medium whitespace-nowrap"
               >
                 Browse Jobs
               </Link>
               <Link
-                to="/dashboard"
-                className="px-3 py-1.5 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-teal-500 hover:text-white transition text-sm font-medium whitespace-nowrap"
+                to="/login"
+                className="px-3 py-2 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-teal-500 hover:text-white transition text-sm font-medium whitespace-nowrap"
               >
-                Dashboard
+                Login
               </Link>
               <Link
-                to="/applications"
-                className="px-3 py-1.5 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-teal-500 hover:text-white transition text-sm font-medium whitespace-nowrap"
+                to="/signup"
+                className="px-3 py-2 text-gray-600 bg-indigo-600 hover:bg-indigo-700 rounded-lg text-white transition text-sm font-medium whitespace-nowrap"
               >
-                Applications
-              </Link>
-              <Link
-                to="/bookmarks"
-                className="px-3 py-1.5 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-teal-500 hover:text-white transition text-sm font-medium whitespace-nowrap"
-              >
-                Bookmarks
+                Get Started
               </Link>
             </nav>
 
-            {/* Divider */}
-            <div className="h-6 w-px bg-gray-300" />
-
-            {/* User Profile Section */}
-            <div className="flex items-center gap-2 shrink-0">
-              <User className="w-4 h-4 text-gray-500" />
-              <button className="text-gray-600 hover:text-gray-900">
-                <span className="text-sm text-gray-800 font-medium ml-2">
-                  {userName}
-                </span>
-              </button>
-              <button className="p-1 rounded-md text-gray-800 hover:bg-teal-500 hover:text-white transition ml-1">
-                <LogOut className="w-4 h-4" />
-              </button>
-            </div>
           </div>
 
           {/* RIGHT SIDE (MOBILE): Hamburger Button */}
@@ -101,24 +76,19 @@ export const Header: React.FC<HeaderProps> = ({
               Browse Jobs
             </Link>
             <Link
-              to="/dashboard"
+              to="/login"
               className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 bg-gray-50"
             >
-              Dashboard
+              Login
             </Link>
             <Link
-              to="/applications"
+              to="/signup"
               className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
             >
-              Applications
-            </Link>
-            <Link
-              to="/bookmarks"
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
-            >
-              Bookmarks
+              Get Started
             </Link>
           </div>
+
           {/* Mobile User Profile */}
           <div className="pt-4 pb-4 border-t border-gray-200 px-4 sm:px-6 bg-gray-50">
             <div className="flex items-center">
@@ -127,17 +97,6 @@ export const Header: React.FC<HeaderProps> = ({
                   <User className="h-6 w-6 text-gray-500" />
                 </div>
               </div>
-              <div className="ml-3">
-                <div className="text-base font-medium text-gray-800">
-                  {userName}
-                </div>
-                <div className="text-sm font-medium text-gray-500">
-                  {userEmail}
-                </div>
-              </div>
-              <button className="ml-auto flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-gray-500">
-                <LogOut className="h-6 w-6" />
-              </button>
             </div>
           </div>
         </div>
