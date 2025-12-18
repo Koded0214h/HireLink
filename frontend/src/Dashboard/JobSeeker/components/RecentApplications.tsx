@@ -1,7 +1,7 @@
 // src/Dashboard/JobSeeker/components/RecentApplications.tsx
 
 import React from 'react';
-import type { Application } from '../types';
+import type { Application } from '../../types';
 import { Link } from 'react-router-dom';
 
 interface RecentApplicationsProps {

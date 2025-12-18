@@ -1,7 +1,7 @@
 // src/Dashboard/JobSeeker/components/ApplicationStatusBreakdown.tsx
 
 import React from 'react';
-import type { StatusBreakdown } from '../types';
+import type { StatusBreakdown } from '../../types';
 
 interface ApplicationStatusBreakdownProps {
   statusData: StatusBreakdown;

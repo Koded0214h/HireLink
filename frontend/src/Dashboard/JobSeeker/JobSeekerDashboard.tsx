@@ -7,7 +7,7 @@ import { ApplicationStatusBreakdown } from './components/ApplicationStatusBreakd
 import { RecentApplications } from './components/RecentApplications';
 import { Header } from '../../Components/Header';
 import { Footer} from '../../Components/Footer';
-import type { DashboardStats, StatusBreakdown, Application } from './types';
+import type { DashboardStats, StatusBreakdown, Application } from '../types';
 
 const JobSeekerDashboard: React.FC = () => {
 
