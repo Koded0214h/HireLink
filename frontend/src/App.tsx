@@ -7,8 +7,10 @@ import EachJob from "./EachJobs/EachJob";
 // added jobseeker dashboard and myapplication (under jobseeker features)
 import JobSeekerDashboard from "./Dashboard/JobSeeker/JobSeekerDashboard";
 import MyApplications from "./Applications/MyApplications";
-import EmployerDashboard from "./EmployerPage/EmployerDashboard";
-import EmployerLayout from "./EmployerPage/Layout/EmployerLayout";
+import EmployerDashboard from "./Dashboard/Employer/EmployerDashboard";
+import EmployerLayout from "./Dashboard/Employer/Layout/EmployerLayout";
+import EmployerJobsPage from "./Dashboard/Employer/EmployerJobsPage";
+import PostNewJob from "./Dashboard/Employer/PostNewJob";
 
 function App() {
   const routes = [
@@ -29,7 +31,8 @@ function App() {
       children: [
         { index: true, element: <EmployerDashboard /> },
         { path: "dashboard", element: <EmployerDashboard /> },
-        // { path: "post-jobs", element: <PostJobs /> },
+        { path: "manage-jobs", element: <EmployerJobsPage /> },
+        { path: "new-job", element: <PostNewJob /> },
       ],
     },
   ];
