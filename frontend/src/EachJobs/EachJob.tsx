@@ -1,10 +1,14 @@
 import { useParams, Link } from "react-router-dom";
+import { useState } from "react";
+import ApplyModal from "../Components/ApplyModal";
 import {
   MapPin,
   Briefcase,
   Calendar,
   DollarSign,
   ChevronLeft,
+  Share2,
+  Bookmark,
 } from "lucide-react";
 
 import { Header } from "../Components/Header.tsx";
@@ -99,6 +103,7 @@ const jobs = [
 
 const EachJob = () => {
   const { id } = useParams<{ id: string }>();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const job = jobs.find((j) => j.id === Number(id));
 
@@ -142,6 +147,7 @@ const EachJob = () => {
                 {job.company}
               </p>
             </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8 mb-8 pb-8 border-b border-slate-100">
               <div className="flex items-center text-slate-500">
                 <MapPin className="w-5 h-5 mr-3 text-slate-400" />
@@ -163,6 +169,30 @@ const EachJob = () => {
                 Posted {job.posted}
               </div>
             </div>
+            <div className="flex flex-col sm:flex-row gap-4 mb-10">
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="flex-1 bg-indigo-600 text-white font-bold py-3.5 px-6 rounded-xl hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-100 flex items-center justify-center gap-2"
+              >
+                Apply Now
+              </button>
+
+              <div className="flex gap-3">
+                <button
+                  className="p-3.5 border border-slate-200 rounded-xl hover:bg-slate-50 text-slate-600 transition-colors"
+                  title="Save Job"
+                >
+                  <Bookmark className="w-5 h-5" />
+                </button>
+                <button
+                  className="p-3.5 border border-slate-200 rounded-xl hover:bg-slate-50 text-slate-600 transition-colors"
+                  title="Share Job"
+                >
+                  <Share2 className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
             <div className="flex gap-3 mb-10">
               <span className="px-4 py-1.5 rounded-full bg-slate-100 text-slate-600 font-medium text-sm border border-slate-200">
                 {job.type}
@@ -171,6 +201,7 @@ const EachJob = () => {
                 {job.status}
               </span>
             </div>
+
             <div className="mb-10">
               <h3 className="text-xl font-bold text-slate-900 mb-4">
                 Job Description
@@ -179,6 +210,7 @@ const EachJob = () => {
                 {job.description}
               </p>
             </div>
+
             <div>
               <h3 className="text-xl font-bold text-slate-900 mb-4">
                 Requirements
@@ -192,6 +224,12 @@ const EachJob = () => {
       </main>
 
       <Footer />
+      <ApplyModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        jobTitle={job.title}
+        companyName={job.company}
+      />
     </div>
   );
 };
