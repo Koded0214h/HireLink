@@ -1,5 +1,6 @@
 import { Sequelize, DataTypes, Model } from "sequelize";
 import sequelize from "../config/sequelize";
+import Job from "./job";
 
 class Application extends Model {
    application_Id!: number;
@@ -8,6 +9,7 @@ class Application extends Model {
     resume_Id!: number;
     status!: "Applied" | "Under Review" | "Interview Scheduled" | "Offered" | "Rejected";
     applied_at!: Date;
+    public job?: Job;
 }
 
 Application.init(
@@ -48,16 +50,15 @@ Application.init(
           applied_date: {
             type: DataTypes.DATE,
             allowNull: false,
-            defaultValue: DataTypes.NOW,
           },
         status: {
             type: DataTypes.ENUM("Applied", "Under Review", "Interview Scheduled", "Offered", "Rejected"),
             allowNull: false,
+            defaultValue: "Applied"
         },
         reviewed_at: {
             type: DataTypes.DATE,
             allowNull: false,
-            defaultValue: DataTypes.NOW,
         },
         notes: {
             type: DataTypes.TEXT,
