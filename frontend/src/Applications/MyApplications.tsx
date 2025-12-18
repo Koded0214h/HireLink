@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { ApplicationCard } from './components/ApplicationCard';
 import { Header } from '../Components/Header';
 import { Footer} from '../Components/Footer';
-import type { Application } from '../Dashboard/JobSeeker/types';
+import type { Application } from '../Dashboard/types';
 
 const MyApplications: React.FC = () => {
 
