@@ -1,7 +1,7 @@
 // src/Applications/components/ApplicationCard.tsx
 
 import React from 'react';
-import type { Application } from '../../Dashboard/JobSeeker/types';
+import type { Application } from '../../Dashboard/types';
 
 interface ApplicationCardProps {
   application: Application;
