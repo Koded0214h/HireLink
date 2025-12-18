@@ -15,7 +15,7 @@ export default function CallToAction() {
           Create Free Account
         </Link>
         <Link
-          to="/browse"
+          to="/jobs"
           className="rounded border border-white px-6 py-3 font-bold hover:bg-indigo-600 transition-colors"
         >
           Browse Jobs

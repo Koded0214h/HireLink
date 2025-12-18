@@ -14,10 +14,17 @@ export const Footer: React.FC = () => {
           {/* Company Info */}
           <div>
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
-                <Briefcase className="w-5 h-5 text-white" strokeWidth={2.5} />
-              </div>
-              <span className="text-xl font-bold text-gray-700">HireLink</span>
+              <Link
+                to="/"
+                className="flex items-center gap-2 shrink-0 cursor-pointer"
+              >
+                <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+                  <Briefcase className="w-5 h-5 text-white" strokeWidth={2.5} />
+                </div>
+                <span className="text-xl font-bold text-gray-700">
+                  HireLink
+                </span>
+              </Link>
             </div>
             <p className="text-gray-600 text-sm">
               A modern job board connecting employers with job seekers. Find

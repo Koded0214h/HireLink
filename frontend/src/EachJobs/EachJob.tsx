@@ -126,7 +126,7 @@ const EachJob = () => {
       <main className="grow pb-20">
         <div className="max-w-4xl mx-auto px-6 py-10">
           <Link
-            to="/browse"
+            to="/jobs"
             className="inline-flex items-center text-slate-500 hover:text-blue-600 mb-8 transition-colors font-medium"
           >
             <ChevronLeft className="w-5 h-5 mr-1" />
