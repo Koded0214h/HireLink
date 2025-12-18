@@ -20,7 +20,7 @@ export default function Hero() {
           Find Jobs
         </Link>
         <Link
-          to="/post-job"
+          to="/signup"
           className="group rounded-md border border-gray-300 px-6 py-3 flex justify-center items-center font-bold gap-x-2 hover:bg-gray-50 transition-colors"
         >
           <TrendingUp className="h-4 w-4 transition-transform group-hover:translate-x-1" />

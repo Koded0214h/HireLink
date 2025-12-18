@@ -11,7 +11,7 @@ import {
   Bookmark,
 } from "lucide-react";
 
-import { Header } from "../Components/Header.tsx";
+import { Header } from "../Components/JobSeekerHeader.tsx";
 import { Footer } from "../Components/Footer.tsx";
 
 const jobs = [

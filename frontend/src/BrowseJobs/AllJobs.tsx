@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search, MapPin, Briefcase, DollarSign } from "lucide-react";
 
-import { Header } from "../Components/Header";
+import { Header } from "../Components/JobSeekerHeader";
 import { Footer } from "../Components/Footer";
 
 
