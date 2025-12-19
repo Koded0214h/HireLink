@@ -2,7 +2,7 @@
 
 HireLink is a job recruitment platform designed to connect job seekers with potential employers. It features secure authentication, comprehensive profile management, and streamlined job application workflows.
 
-## 🛠 Tech Stack
+## Tech Stack
 
 * **Backend:** Node.js, Express.js, TypeScript
 * **Frontend:** React.js TailwindCSS, TypeScript
@@ -84,7 +84,7 @@ npm run build
 npm start
 ```
 
-## 📡 API Endpoints
+## API Endpoints
 
 ### Authentication
 POST /api/auth/signup - Register a new user (Jobseeker/Employer)
@@ -101,7 +101,7 @@ POST /api/jobs - Post a new job listing (Protected)
 
 GET /api/jobs - View all job listings
 
-## 🌍 Deployment
+## Deployment
 This project is configured for seamless deployment on Render.
 
 Connect your GitHub repository to Render.
@@ -120,8 +120,8 @@ JWT_SECRET: (A strong random string)
 
 NODE_ENV: production
 
-## 🤝 Contributing
+## Contributing
 Contributions are welcome! Please fork the repository and submit a pull request.
 
-## 📝 License
+## License
 This project is licensed under the MIT License.
