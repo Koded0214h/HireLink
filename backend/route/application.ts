@@ -3,13 +3,14 @@ import { authenticate } from "../middleware/auth";
 import Application from "../models/application";
 import Job from "../models/job";
 import Jobseeker from "../models/jobseeker";
+import Employer from "../models/employer";
 
 const router = express.Router();
 
 // Create application
 router.post("/", authenticate, async (req: Request, res: Response) => {
     const { id, role } = req.user;
-    const { job_Id } = req.body;
+    const { job_Id, resume_url, cover_letter } = req.body;
 
     if (role !== "jobseeker") {
         return res.status(403).json({
@@ -47,7 +48,11 @@ router.post("/", authenticate, async (req: Request, res: Response) => {
 
         const application = await Application.create({
             job_Id,
-            jobseeker_Id: jobseeker.jobseeker_Id
+            jobseeker_Id: jobseeker.jobseeker_Id,
+            resume_url,
+            cover_letter,
+            applied_date: new Date(),
+            reviewed_at: new Date()
         });
 
         return res.status(201).json({
@@ -74,6 +79,13 @@ router.get("/job/:jobId", authenticate, async (req: Request, res: Response) => {
     }
 
     try {
+        const employer = await Employer.findOne({ where: { user_Id: id } });
+        if (!employer) {
+            return res.status(404).json({
+                message: "Employer profile not found"
+            });
+        }
+
         const job = await Job.findByPk(jobId);
         if (!job) {
             return res.status(404).json({
@@ -81,7 +93,7 @@ router.get("/job/:jobId", authenticate, async (req: Request, res: Response) => {
             });
         }
 
-        if (job.employer_Id !== id) {
+        if (job.employer_Id !== employer.employer_Id) {
             return res.status(403).json({
                 message: "Forbidden: You can only view applications for your own jobs"
             });
@@ -90,8 +102,7 @@ router.get("/job/:jobId", authenticate, async (req: Request, res: Response) => {
         const applications = await Application.findAll({
             where: { job_Id: jobId },
             include: [{
-                model: Jobseeker,
-                as: 'jobseeker'
+                model: Jobseeker
             }],
             order: [['createdAt', 'DESC']]
         });
@@ -128,10 +139,6 @@ router.get("/my-applications", authenticate, async (req: Request, res: Response)
 
         const applications = await Application.findAll({
             where: { jobseeker_Id: jobseeker.jobseeker_Id },
-            include: [{
-                model: Job,
-                as: 'job'
-            }],
             order: [['createdAt', 'DESC']]
         });
 
@@ -160,12 +167,7 @@ router.put("/:applicationId/status", authenticate, async (req: Request, res: Res
     }
 
     try {
-        const application = await Application.findByPk(applicationId, {
-            include: [{
-                model: Job,
-                as: 'job'
-            }]
-        });
+        const application = await Application.findByPk(applicationId);
 
         if (!application) {
             return res.status(404).json({
@@ -173,7 +175,21 @@ router.put("/:applicationId/status", authenticate, async (req: Request, res: Res
             });
         }
 
-        if (application.job.employer_Id !== id) {
+        const job = await Job.findByPk(application.job_Id);
+        if (!job) {
+            return res.status(404).json({
+                message: "Job not found"
+            });
+        }
+
+        const employer = await Employer.findOne({ where: { user_Id: id } });
+        if (!employer) {
+            return res.status(404).json({
+                message: "Employer profile not found"
+            });
+        }
+
+        if (job.employer_Id !== employer.employer_Id) {
             return res.status(403).json({
                 message: "Forbidden: You can only update applications for your own jobs"
             });

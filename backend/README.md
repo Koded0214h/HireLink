@@ -1,2 +1,0 @@
-# HireLink
-hatchDev project

@@ -5,10 +5,12 @@ import Signup from "./Auth/Signup/Signup";
 import AllJobs from "./BrowseJobs/AllJobs";
 import EachJob from "./EachJobs/EachJob";
 
-
-// added jobseeker dashboard and myapplication (under jobseeker features)
+import JobSeekerLayout from "./Dashboard/JobSeeker/JobSeekerLayout";
 import JobSeekerDashboard from "./Dashboard/JobSeeker/JobSeekerDashboard";
+import Profile from "./Dashboard/JobSeeker/Profile";
 import MyApplications from "./Applications/MyApplications";
+import Settings from "./Dashboard/JobSeeker/Settings";
+
 import EmployerDashboard from "./Dashboard/Employer/EmployerDashboard";
 import EmployerLayout from "./Dashboard/Employer/Layout/EmployerLayout";
 import EmployerJobsPage from "./Dashboard/Employer/EmployerJobsPage";
@@ -23,14 +25,21 @@ function App() {
     { path: "/signup", element: <Signup /> },
     { path: "/jobs", element: <AllJobs /> },
     { path: "/jobs/:id", element: <EachJob /> },
-    // added jobseeker dashboard and application route.
-    { path: "/dashboard", element: <JobSeekerDashboard /> },
-    { path: "/applications", element: <MyApplications /> },
 
-    //jobseeker routes
-    { path: "/bookmarks", element: < Bookmarks/>,},
+    // JOB SEEKER ROUTES (NESTED STRUCTURE)
+    {
+      path: "/jobseeker",
+      element: <JobSeekerLayout />,
+      children: [
+        { index: true, element: <JobSeekerDashboard /> },
+        { path: "profile", element: <Profile /> },
+        { path: "applications", element: <MyApplications /> },
+        { path: "settings", element: <Settings /> },
+        { path: "bookmarks", element: <Bookmarks/> },
+      ],
+    },
 
-    // Employer routes
+    //EMPLOYER ROUTES
     {
       path: "/employer",
       element: <EmployerLayout />,

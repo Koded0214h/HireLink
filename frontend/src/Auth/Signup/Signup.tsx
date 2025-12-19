@@ -1,75 +1,109 @@
-import React, { useState } from 'react';
-import { Header } from '../components/Header';
-import { Footer } from '../../Components/Footer';
-import { Briefcase } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Header } from "../../Components/Header";
+import { Footer } from "../../Components/Footer";
+import { Briefcase } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup: React.FC = () => {
-  // State to manage the selected user type
-  const [userType, setUserType] = useState<'jobseeker' | 'employer'>('jobseeker');
+  const navigate = useNavigate();
+
+  const [userType, setUserType] = useState<"jobseeker" | "employer">(
+    "jobseeker"
+  );
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSignup = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    setTimeout(() => {
+      const mockUser = {
+        name: userType === "employer" ? "Tech Corp Inc" : "John Doe",
+        email: "user@example.com",
+        role: userType,
+      };
+      localStorage.setItem("user", JSON.stringify(mockUser));
+
+      if (userType === "employer") {
+        navigate("/employer");
+      } else {
+        navigate("/jobseeker");
+      }
+
+      setIsLoading(false);
+    }, 1500);
+  };
 
   return (
-    // Use flex flex-col min-h-screen to ensure footer stays at bottom
     <div className="min-h-screen bg-gray-50 flex flex-col">
-    
-      {/* Header component */}
       <Header />
 
-      {/* Main Content - Added flex-grow and centering classes */}
-      <main className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <main className="grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md bg-white rounded-2xl shadow-sm p-8">
-          
           {/* Logo and Title */}
           <div className="text-center mb-6">
             <div className="mx-auto w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center mb-4">
               <Briefcase className="w-6 h-6 text-white" strokeWidth={2.5} />
             </div>
-            <h1 className="text-1xl font-medium text-gray-800">Create Account</h1>
-            <p className="text-gray-500 mt-1">Join HireLink and start your journey</p>
+            <h1 className="text-1xl font-medium text-gray-800">
+              Create Account
+            </h1>
+            <p className="text-gray-500 mt-1">
+              Join HireLink and start your journey
+            </p>
           </div>
 
-          {/* User Type Toggle */}
           <div className="bg-gray-50 p-1 rounded-lg flex mb-6">
             <button
+              type="button"
               className={`flex-1 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
-                userType === 'jobseeker'
-                  ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-500 hover:text-gray-700'
+                userType === "jobseeker"
+                  ? "bg-white text-gray-900 shadow-sm"
+                  : "text-gray-500 hover:text-gray-700"
               }`}
-              onClick={() => setUserType('jobseeker')}
+              onClick={() => setUserType("jobseeker")}
             >
               Job Seeker
             </button>
             <button
+              type="button"
               className={`flex-1 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
-                userType === 'employer'
-                  ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-500 hover:text-gray-700'
+                userType === "employer"
+                  ? "bg-white text-gray-900 shadow-sm"
+                  : "text-gray-500 hover:text-gray-700"
               }`}
-              onClick={() => setUserType('employer')}
+              onClick={() => setUserType("employer")}
             >
               Employer
             </button>
           </div>
-
-          {/* Login Form */}
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSignup}>
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                Full Name
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                {userType === "employer" ? "Company Name" : "Full Name"}
               </label>
               <input
+                required
                 type="text"
                 id="name"
                 className="w-full px-4 py-2 bg-gray-50 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
-                placeholder="John Doe"
+                placeholder={
+                  userType === "employer" ? "Tech Corp LLC" : "John Doe"
+                }
               />
             </div>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Email
               </label>
               <input
+                required
                 type="email"
                 id="email"
                 className="w-full px-4 py-2 bg-gray-50 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
@@ -77,10 +111,14 @@ const Signup: React.FC = () => {
               />
             </div>
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Password
               </label>
               <input
+                required
                 type="password"
                 id="password"
                 className="w-full px-4 py-2 bg-gray-50 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
@@ -89,28 +127,31 @@ const Signup: React.FC = () => {
             </div>
             <button
               type="submit"
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-lg transition-colors duration-200"
+              disabled={isLoading}
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-lg transition-colors duration-200 flex items-center justify-center"
             >
-              Create Account
+              {isLoading
+                ? "Creating Account..."
+                : userType === "employer"
+                ? "Create Employer Account"
+                : "Create Job Seeker Account"}
             </button>
           </form>
 
-          {/* Sign Up Link */}
           <div className="mt-6 text-center text-sm text-gray-600">
-            Already have an account?{' '}
-            <Link to="/login" className="text-indigo-600 hover:text-indigo-500 font-medium">
+            Already have an account?{" "}
+            <Link
+              to="/login"
+              className="text-indigo-600 hover:text-indigo-500 font-medium"
+            >
               Login
             </Link>
           </div>
-
         </div>
       </main>
-
-      {/* Footer component*/}
       <Footer />
     </div>
-  )
+  );
+};
 
-}
-
-export default Signup
+export default Signup;

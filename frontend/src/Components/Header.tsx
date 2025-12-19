@@ -37,13 +37,13 @@ export const Header: React.FC<HeaderProps> = ({
                 Browse Jobs
               </Link>
               <Link
-                to="/dashboard"
+                to="/jobseeker"
                 className="px-3 py-1.5 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-teal-500 hover:text-white transition text-sm font-medium whitespace-nowrap"
               >
                 Dashboard
               </Link>
               <Link
-                to="/applications"
+                to="/jobseeker/applications"
                 className="px-3 py-1.5 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-teal-500 hover:text-white transition text-sm font-medium whitespace-nowrap"
               >
                 Applications

@@ -19,16 +19,22 @@ router.get("/employer", authenticate, async (req: Request, res: Response) => {
     }
 
     try {
-        const totalJobs = await Job.count({ where: { employer_Id: id } });
+        const employer = await Employer.findOne({ where: { user_Id: id } });
+        if (!employer) {
+            return res.status(404).json({
+                message: "Employer profile not found"
+            });
+        }
+        const totalJobs = await Job.count({ where: { employer_Id: employer.employer_Id } });
         const activeJobs = await Job.count({ 
-            where: { employer_Id: id, isACTIVE: "Open" } 
+            where: { employer_Id: employer.employer_Id, isACTIVE: "Open" } 
         });
+        const jobs = await Job.findAll({ where: { employer_Id: employer.employer_Id } });
+        const jobIds = jobs.map(job => job.job_Id);
         const totalApplications = await Application.count({
-            include: [{
-                model: Job,
-                as: 'job',
-                where: { employer_Id: id }
-            }]
+            where: {
+                job_Id: jobIds
+            }
         });
 
         return res.status(200).json({
