@@ -49,7 +49,7 @@ export const Header: React.FC<HeaderProps> = ({
                 Applications
               </Link>
               <Link
-                to="/bookmarks"
+                to="/jobseeker/bookmarks"
                 className="px-3 py-1.5 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-teal-500 hover:text-white transition text-sm font-medium whitespace-nowrap"
               >
                 Bookmarks

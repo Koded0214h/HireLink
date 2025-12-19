@@ -1,8 +1,10 @@
+
 import React, { useState } from "react";
 import { Header } from "../../Components/Header";
 import { Footer } from "../../Components/Footer";
 import { Briefcase } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+
 
 const Signup: React.FC = () => {
   const navigate = useNavigate();
