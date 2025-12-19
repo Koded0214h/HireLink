@@ -85,6 +85,10 @@ router.get("/", authenticate, async (req: Request, res: Response) => {
 
         const bookmarks = await Bookmark.findAll({
             where: { jobseeker_Id: jobseeker.jobseeker_Id },
+            include: [{
+                model: Job,
+                as: 'job'
+            }],
             order: [['createdAt', 'DESC']]
         });
 

@@ -1,6 +1,5 @@
 import { Sequelize, DataTypes, Model } from "sequelize";
 import sequelize from "../config/sequelize";
-import Employer from "./employer";
 
 class Job extends Model {
    job_Id!: number;
@@ -15,7 +14,6 @@ class Job extends Model {
     location_type!:"On-site" | "Remote" | "Hybrid";
     requirements!: string;
     isACTIVE!: "Open" | "Closed";
-    public employer?: Employer;
     
 
 }
