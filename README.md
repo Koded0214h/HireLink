@@ -1,92 +1,115 @@
-# HireLink
+# HireLink 🚀
 
-HireLink is a full-stack web application that connects job seekers with employers. Job seekers can browse and apply for jobs, while employers can post new job openings and manage their applications.
+HireLink is a full-stack job recruitment platform designed to connect job seekers with potential employers. It features secure authentication, comprehensive profile management, and streamlined job application workflows.
+
+## 🛠 Tech Stack
+
+* **Backend:** Node.js, Express.js, TypeScript
+* **Database:** PostgreSQL (via Neon), Sequelize ORM
+* **Authentication:** JWT (JSON Web Tokens)
+* **Deployment:** Render
+* **Version Control:** Git & GitHub
 
 ## Features
 
-### Job Seekers
-- Browse and search for jobs
-- View job details
-- Apply for jobs
-- Track application status
-- Bookmark jobs
+* **User Authentication:** Secure Sign up/Login for Job Seekers and Employers using JWT.
+* **Role-Based Access:** Distinct workflows for Job Seekers (apply for jobs) and Employers (post jobs).
+* **Profile Management:** Create and update profiles with resumes, contact details, and professional summaries.
+* **Secure Data:** Password hashing with bcrypt and environment variable protection.
 
-### Employers
-- Post new jobs
-- View and manage job postings
-- View applications for each job
-
-## Technologies Used
-
-### Frontend
-- React
-- TypeScript
-- Vite
-- Tailwind CSS
-- React Router
-
-### Backend
-- Node.js
-- Express
-- TypeScript
-- Sequelize
-- PostgreSQL
+---
 
 ## Getting Started
 
+Follow these steps to set up the project locally on your machine.
+
 ### Prerequisites
-- Node.js
-- PostgreSQL
 
-### Installation
+* Node.js (v18 or higher recommended)
+* PostgreSQL (Local installation or a Cloud URL like Neon)
+* Git
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/Koded0214h/HireLink.git
-   ```
+### 1. Clone the Repository
 
-2. **Install backend dependencies:**
-   ```bash
-   cd backend
-   npm install
-   ```
+```bash
+git clone [https://github.com/Koded0214h/HireLink.git](https://github.com/Koded0214h/HireLink.git)
+cd HireLink
 
-3. **Install frontend dependencies:**
-   ```bash
-   cd ../frontend
-   npm install
-   ```
+2. Install Dependencies
 
-### Database Setup
+npm install
 
-1. **Create a PostgreSQL database.**
-2. **Create a `.env` file in the `backend` directory** and add the following environment variables:
-   ```
-   DB_USERNAME=<your_database_username>
-   DB_PASSWORD=<your_database_password>
-   DB_NAME=<your_database_name>
-   DB_HOST=localhost
-   DB_PORT=5432
-   ```
+3. Configure Environment Variables
 
-3. **Run database migrations:**
-   ```bash
-   cd backend
-   npx sequelize-cli db:migrate
-   ```
+For Local Development (Standard):
 
-### Running the Application
+PORT=5000
+NODE_ENV=development
+JWT_SECRET=your_super_secret_key_here
 
-1. **Start the backend server:**
-   ```bash
-   cd backend
-   npm start
-   ```
+DATABASE_HOST=127.0.0.1
+DATABASE_USER=postgres
+DATABASE_PASSWORD=your_local_db_password
+DATABASE_NAME=hirelink_db
+DATABASE_PORT=5432
+For Production / Cloud DB: If you want to run locally but connect to the Neon cloud database:
 
-2. **Start the frontend development server:**
-   ```bash
-   cd ../frontend
-   npm run dev
-   ```
+DATABASE_URL="postgres://neondb_owner:password@pa-hot-frog.us-west-1.aws.neon.tech/neondb?sslmode=require"
 
-The application will be available at `http://localhost:5173`.
+4. Database Setup & Migration
+
+npx sequelize-cli db:migrate
+
+5. Build and Run
+
+Development Mode:
+
+npm run dev
+npx nodemon
+
+Production Build:
+
+npm run build
+npm start
+
+📡 API Endpoints
+
+Authentication
+POST /api/auth/signup - Register a new user (Jobseeker/Employer)
+
+POST /api/auth/login - Login and receive a JWT token
+
+Job Seekers
+GET /api/jobseekers - Get all job seekers (Protected Route)
+
+POST /api/jobseekers - Create/Update profile (Protected Route)
+
+Employers
+POST /api/jobs - Post a new job listing (Protected)
+
+GET /api/jobs - View all job listings
+
+🌍 Deployment
+This project is configured for seamless deployment on Render.
+
+Connect your GitHub repository to Render.
+
+Root Directory: backend (if you have a monorepo) or leave blank if root.
+
+Build Command: npm install && npm run build
+
+Start Command: npx sequelize-cli db:migrate && node dist/index.js
+
+Environment Variables:
+
+DATABASE_URL: (Your Neon Connection String)
+
+JWT_SECRET: (A strong random string)
+
+NODE_ENV: production
+
+🤝 Contributing
+Contributions are welcome! Please fork the repository and submit a pull request.
+
+📝 License
+This project is licensed under the MIT License.
