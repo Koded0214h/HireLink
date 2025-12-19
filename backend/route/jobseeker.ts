@@ -65,7 +65,12 @@ router.get("/profile", authenticate, async (req: Request, res: Response) => {
 
     try {
         const jobseeker = await Jobseeker.findOne({ 
-            where: { user_Id: id }
+            where: { user_Id: id },
+            include: [{
+                model: User,
+                as: 'user',
+                attributes: ['email', 'firstName', 'lastName']
+            }]
         });
 
         if (!jobseeker) {

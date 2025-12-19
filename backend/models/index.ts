@@ -36,10 +36,10 @@ Bookmark.belongsTo(Jobseeker, { foreignKey: 'jobseeker_Id', as: 'jobseeker' });
 
 // Job-Application associations
 Job.hasMany(Application, { foreignKey: 'job_Id', as: 'applications' });
-Application.belongsTo(Job, { foreignKey: 'job_Id', as: 'job', onDelete: 'CASCADE' });
+Application.belongsTo(Job, { foreignKey: 'job_Id', as: 'job' });
 
 Jobseeker.hasMany(Application, { foreignKey: 'jobseeker_Id', as: 'applications' });
-Application.belongsTo(Jobseeker, { foreignKey: 'jobseeker_Id', targetKey: 'jobseeker_Id', as: 'jobseeker' });
+Application.belongsTo(Jobseeker, { foreignKey: 'jobseeker_Id', as: 'jobseeker' });
 
 export { sequelize };
 export default models;

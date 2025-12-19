@@ -3,17 +3,9 @@
     "target": "es2020",
     "module": "commonjs",
     "outDir": "dist",
-    "rootDir": "./",
+    "rootDir": ".",
     "esModuleInterop": true,
     "strict": true,
-    "skipLibCheck": true,
-    "sourceMap": true
-  },
-  "include": [
-    "index.ts",
-    "route/**/*.ts",
-    "models/**/*.ts",
-    "middleware/**/*.ts",
-    "config/**/*.ts"
-  ]
+    "skipLibCheck": true
+  }
 }
