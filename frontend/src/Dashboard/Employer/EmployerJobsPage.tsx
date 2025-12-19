@@ -1,3 +1,4 @@
+import { Link } from "react-router"
 import type { EmployerJobsPosted } from "../types"
 import ActionButton from "./component/ActionButton"
 import { employerJobsPostedMock } from "./mockDatas"
@@ -12,7 +13,9 @@ const EmployerJobsPage = () => {
                     <p className="text-gray-600">View and manage your job posting </p>
                 </span>
                 <span className="place-self-end">
-                    <ActionButton label="Post New Job" className="bg-[#4F46E5] text-white font-semibold hover:opacity-90 hover:transition-all hover:duration-200 "/>
+                    <Link to="/employer/new-job"> 
+                        <ActionButton label="Post New Job" className="bg-[#4F46E5] text-white font-semibold hover:opacity-90 hover:transition-all hover:duration-200 " />
+                    </Link>
                 </span>
             </section>
 
@@ -41,8 +44,8 @@ const EmployerJobsPage = () => {
                         </div>
 
                         <div className="flex flex-row items-center space-x-2 mt-8">
-                            <ActionButton label="View Applicants" className="border border-gray-200 font-semibold"/>
-                            <ActionButton label={eachData.isOpen ? "Close" : "Reopen"} className={`${!eachData.isOpen ? "bg-[#4F46E5] text-white" : "bg-[#F1F5F9] text-black"} font-semibold hover:opacity-80`}/>
+                            <ActionButton label="View Applicants" className="border border-gray-200 font-semibold" />
+                            <ActionButton label={eachData.isOpen ? "Close" : "Reopen"} className={`${!eachData.isOpen ? "bg-[#4F46E5] text-white" : "bg-[#F1F5F9] text-black"} font-semibold hover:opacity-80`} />
                         </div>
                     </section>
                 ))}

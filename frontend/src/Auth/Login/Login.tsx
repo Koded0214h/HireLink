@@ -2,20 +2,53 @@ import React, { useState } from 'react';
 import { Header } from '../components/Header';
 import { Footer } from '../../Components/Footer';
 import { Briefcase } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { loginApi } from '../../api/authAPI/loginApi';
 
 const Login: React.FC = () => {
-  // State to manage the selected user type
+  // User type toggle
   const [userType, setUserType] = useState<'jobseeker' | 'employer'>('jobseeker');
 
+  const navigate = useNavigate();
+
+  // Form state
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  // Loading state
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    const payload = {
+      email,
+      password,
+    };
+
+    try {
+      const res = await loginApi(payload);
+      console.log(res);
+
+      if (res.message === 'success' && res.role === 'jobseeker') {
+        navigate('/jobseeker');
+      }
+
+      if (res.message === 'success' && res.role === 'employer') {
+        navigate('/employer/dashboard');
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
-    // Use flex flex-col min-h-screen to ensure footer stays at bottom
     <div className="min-h-screen bg-gray-50 flex flex-col">
-    
-      {/* Header component */}
       <Header />
 
-      {/* Main Content - Added flex-grow and centering classes */}
       <main className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md bg-white rounded-2xl shadow-sm p-8">
           
@@ -31,6 +64,7 @@ const Login: React.FC = () => {
           {/* User Type Toggle */}
           <div className="bg-gray-50 p-1 rounded-lg flex mb-6">
             <button
+              type="button"
               className={`flex-1 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
                 userType === 'jobseeker'
                   ? 'bg-white text-gray-900 shadow-sm'
@@ -41,6 +75,7 @@ const Login: React.FC = () => {
               Job Seeker
             </button>
             <button
+              type="button"
               className={`flex-1 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
                 userType === 'employer'
                   ? 'bg-white text-gray-900 shadow-sm'
@@ -53,7 +88,7 @@ const Login: React.FC = () => {
           </div>
 
           {/* Login Form */}
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleLogin}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                 Email
@@ -61,10 +96,15 @@ const Login: React.FC = () => {
               <input
                 type="email"
                 id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-2 bg-gray-50 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
                 placeholder="your@email.com"
+                required
+                disabled={isLoading}
               />
             </div>
+
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
                 Password
@@ -72,21 +112,27 @@ const Login: React.FC = () => {
               <input
                 type="password"
                 id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-2 bg-gray-50 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
                 placeholder="••••••••"
+                required
+                disabled={isLoading}
               />
             </div>
+
             <button
               type="submit"
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-lg transition-colors duration-200"
+              disabled={isLoading}
+              className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white font-medium py-2.5 rounded-lg transition-colors duration-200"
             >
-              Login
+              {isLoading ? 'Logging in...' : 'Login'}
             </button>
           </form>
 
           {/* Sign Up Link */}
           <div className="mt-6 text-center text-sm text-gray-600">
-            Don't have an account? {' '}
+            Don't have an account?{' '}
             <Link to="/signup" className="text-indigo-600 hover:text-indigo-500 font-medium">
               Sign up
             </Link>
@@ -95,10 +141,9 @@ const Login: React.FC = () => {
         </div>
       </main>
 
-      {/* Footer component*/}
       <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

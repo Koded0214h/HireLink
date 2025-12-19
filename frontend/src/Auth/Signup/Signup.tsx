@@ -3,6 +3,7 @@ import { Header } from "../../Components/Header";
 import { Footer } from "../../Components/Footer";
 import { Briefcase } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { signUpApi } from "../../api/authAPI/signUpApi";
 
 const Signup: React.FC = () => {
   const navigate = useNavigate();
@@ -12,26 +13,60 @@ const Signup: React.FC = () => {
   );
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSignup = (e: React.FormEvent) => {
+  // Form state
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSignup = async(e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
-    setTimeout(() => {
-      const mockUser = {
-        name: userType === "employer" ? "Tech Corp Inc" : "John Doe",
-        email: "user@example.com",
-        role: userType,
-      };
-      localStorage.setItem("user", JSON.stringify(mockUser));
+    const userPayload =
+      userType === "employer"
+        ? {
+            name: companyName,
+            email,
+            password,
+            role: "employer",
+          }
+        : {
+            firstName,
+            lastName,
+            email,
+            password,
+            role: "jobseeker",
+          };
 
-      if (userType === "employer") {
-        navigate("/employer");
-      } else {
-        navigate("/jobseeker");
-      }
+    console.log("SIGNUP PAYLOAD:", userPayload);
 
-      setIsLoading(false);
-    }, 1500);
+    // Call api
+    try {
+      const res = await signUpApi(userPayload)
+
+      console.log(res)
+      navigate('/login')
+
+      setIsLoading(false)
+    } catch (error) {
+      console.error(error)
+      setIsLoading(false)
+    }
+
+    // Mock flow
+    // setTimeout(() => {
+    //   localStorage.setItem("user", JSON.stringify(userPayload));
+
+    //   if (userType === "employer") {
+    //     navigate("/employer");
+    //   } else {
+    //     navigate("/jobseeker");
+    //   }
+
+    //   setIsLoading(false);
+    // }, 1500);
   };
 
   return (
@@ -53,6 +88,7 @@ const Signup: React.FC = () => {
             </p>
           </div>
 
+          {/* User Type Toggle */}
           <div className="bg-gray-50 p-1 rounded-lg flex mb-6">
             <button
               type="button"
@@ -77,54 +113,85 @@ const Signup: React.FC = () => {
               Employer
             </button>
           </div>
+
+          {/* Signup Form */}
           <form className="space-y-4" onSubmit={handleSignup}>
+            {/* Name Section */}
+            {userType === "employer" ? (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Company Name
+                </label>
+                <input
+                  required
+                  type="text"
+                  value={companyName}
+                  onChange={(e) => setCompanyName(e.target.value)}
+                  className="w-full px-4 py-2 bg-gray-50 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                  placeholder="Tech Corp LLC"
+                />
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    First Name
+                  </label>
+                  <input
+                    required
+                    type="text"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    className="w-full px-4 py-2 bg-gray-50 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                    placeholder="John"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Last Name
+                  </label>
+                  <input
+                    required
+                    type="text"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    className="w-full px-4 py-2 bg-gray-50 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                    placeholder="Doe"
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Email */}
             <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                {userType === "employer" ? "Company Name" : "Full Name"}
-              </label>
-              <input
-                required
-                type="text"
-                id="name"
-                className="w-full px-4 py-2 bg-gray-50 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
-                placeholder={
-                  userType === "employer" ? "Tech Corp LLC" : "John Doe"
-                }
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Email
               </label>
               <input
                 required
                 type="email"
-                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-2 bg-gray-50 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
                 placeholder="your@email.com"
               />
             </div>
+
+            {/* Password */}
             <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Password
               </label>
               <input
                 required
                 type="password"
-                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-2 bg-gray-50 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
                 placeholder="••••••••"
               />
             </div>
+
             <button
               type="submit"
               disabled={isLoading}
@@ -149,6 +216,7 @@ const Signup: React.FC = () => {
           </div>
         </div>
       </main>
+
       <Footer />
     </div>
   );
