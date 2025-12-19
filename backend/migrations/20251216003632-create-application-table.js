@@ -49,6 +49,7 @@ applied_date: {
     status: {
         type: Sequelize.ENUM("Applied", "Under Review", "Interview Scheduled", "Offered", "Rejected"),
         allowNull: false,
+        defaultValue: "Applied",
     },
     reviewed_at: {
         type: Sequelize.DATE,
@@ -58,19 +59,22 @@ applied_date: {
         type: Sequelize.TEXT,
         allowNull: true,
     },
-    created_at: {
+    createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.NOW,
-    },
-    updatedAt: {
+      },
+      updatedAt: {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.NOW,
       },
 },
     );
+    
   },
+
+
 
   async down (queryInterface, Sequelize) {
     /**

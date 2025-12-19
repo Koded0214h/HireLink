@@ -8,6 +8,7 @@ import Employer from "../models/employer";
 
 const router = express.Router();
 
+
 // Get dashboard stats for employer
 router.get("/employer", authenticate, async (req: Request, res: Response) => {
     const { id, role } = req.user;
@@ -19,22 +20,16 @@ router.get("/employer", authenticate, async (req: Request, res: Response) => {
     }
 
     try {
-        const employer = await Employer.findOne({ where: { user_Id: id } });
-        if (!employer) {
-            return res.status(404).json({
-                message: "Employer profile not found"
-            });
-        }
-        const totalJobs = await Job.count({ where: { employer_Id: employer.employer_Id } });
+        const totalJobs = await Job.count({ where: { employer_Id: id } });
         const activeJobs = await Job.count({ 
-            where: { employer_Id: employer.employer_Id, isACTIVE: "Open" } 
+            where: { employer_Id: id, isACTIVE: "Open" } 
         });
-        const jobs = await Job.findAll({ where: { employer_Id: employer.employer_Id } });
-        const jobIds = jobs.map(job => job.job_Id);
         const totalApplications = await Application.count({
-            where: {
-                job_Id: jobIds
-            }
+            include: [{
+                model: Job,
+                as: 'job',
+                where: { employer_Id: id }
+            }]
         });
 
         return res.status(200).json({
@@ -83,6 +78,93 @@ router.get("/jobseeker", authenticate, async (req: Request, res: Response) => {
             stats: {
                 totalApplications,
                 totalBookmarks
+            }
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal server error",
+            error
+        });
+    }
+});
+//Get Recent applications for dashboard (jobseeker)
+router.get("/recentapplications", authenticate, async (req: Request, res: Response) => {
+    const { id, role } = req.user;
+
+    if (role !== "jobseeker") {
+        return res.status(403).json({
+            message: "Forbidden: Only jobseekers can view their applications"
+        });
+    }
+
+    try {
+        const jobseeker = await Jobseeker.findOne({ where: { user_Id: id } });
+        if (!jobseeker) {
+            return res.status(404).json({
+                message: "Jobseeker profile not found"
+            });
+        }
+
+        const applications = await Application.findAll({
+            limit: 3,
+            where: { jobseeker_Id: jobseeker.jobseeker_Id },
+            include: [{
+                model: Job,
+                as: 'job'
+            }],
+            order: [['createdAt', 'DESC']]
+        });
+
+        return res.status(200).json({
+            message: "Applications retrieved successfully",
+            applications
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal server error",
+            error
+        });
+    }
+});
+
+//Get Application status breakdown for dashboard (jobseeker)
+router.get("/applicationstatus", authenticate, async (req: Request, res: Response) => {
+    const { id, role } = req.user;
+
+    if (role !== "jobseeker") {
+        return res.status(403).json({
+            message: "Forbidden: Only jobseekers can view their application status"
+        });
+    }
+
+    try {
+        const jobseeker = await Jobseeker.findOne({ where: { user_Id: id } });
+        if (!jobseeker) {
+            return res.status(404).json({
+                message: "Jobseeker profile not found"
+            });
+        }
+
+        const applied = await Application.count({
+            where: { jobseeker_Id: jobseeker.jobseeker_Id, status: "Applied" }
+        });
+        const shortlisted = await Application.count({
+            where: { jobseeker_Id: jobseeker.jobseeker_Id, status: "Interview Scheduled" }
+        });
+        const rejected = await Application.count({
+            where: { jobseeker_Id: jobseeker.jobseeker_Id, status: "Rejected" }
+        });
+        const hired = await Application.count({
+            where: { jobseeker_Id: jobseeker.jobseeker_Id, status: "Offered" }
+        });
+
+        return res.status(200).json({
+            message: "Application status breakdown retrieved successfully",
+            statusBreakdown: {
+                applied,
+                shortlisted,
+                rejected,
+                hired
             }
         });
     } catch (error) {

@@ -1,6 +1,7 @@
 import { Sequelize, DataTypes, Model } from "sequelize";
 import sequelize from "../config/sequelize";
 import Job from "./job";
+import JobSeeker from "./jobseeker";
 
 class Application extends Model {
    application_Id!: number;
@@ -9,7 +10,6 @@ class Application extends Model {
     resume_Id!: number;
     status!: "Applied" | "Under Review" | "Interview Scheduled" | "Offered" | "Rejected";
     applied_at!: Date;
-    public job?: Job;
 }
 
 Application.init(
@@ -50,15 +50,17 @@ Application.init(
           applied_date: {
             type: DataTypes.DATE,
             allowNull: false,
+            defaultValue: DataTypes.NOW,
           },
         status: {
             type: DataTypes.ENUM("Applied", "Under Review", "Interview Scheduled", "Offered", "Rejected"),
+            defaultValue: "Applied",
             allowNull: false,
-            defaultValue: "Applied"
         },
         reviewed_at: {
             type: DataTypes.DATE,
             allowNull: false,
+            defaultValue: DataTypes.NOW,
         },
         notes: {
             type: DataTypes.TEXT,
@@ -72,6 +74,20 @@ Application.init(
       timestamps: true,
      tableName: "applications"
   }
+
 );
+// Define associations
+// Associations
+Application.belongsTo(Job, {
+    foreignKey: "job_Id",
+    as: "job",
+  });
+Job.hasMany(Application, { foreignKey: "job_Id" });
+
+Application.belongsTo(JobSeeker, { foreignKey: "jobseeker_Id" });
+JobSeeker.hasMany(Application, { foreignKey: "jobseeker_Id" });
 
 export default Application;
+
+
+
