@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Briefcase, User, LogOut, Menu, X } from 'lucide-react';
+import { Briefcase, Building2, LogOut, Menu, X } from 'lucide-react';
 
 interface HeaderProps {
     userName?: string;
@@ -7,7 +7,7 @@ interface HeaderProps {
 }
 
 export const EmployerDashboardNav: React.FC<HeaderProps> = ({
-    userName = "John Doe",
+    userName = "Sarah Johnson",
     userEmail = "user@example.com"
 }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -32,10 +32,10 @@ export const EmployerDashboardNav: React.FC<HeaderProps> = ({
                             <a href="/employer/dashboard" className="px-3 py-1.5 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-teal-500 hover:text-white transition text-sm font-medium whitespace-nowrap">
                                 Dashboard
                             </a>
-                            <a href="/manage-jobs" className="px-3 py-1.5 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-teal-500 hover:text-white transition text-sm font-medium whitespace-nowrap">
+                            <a href="/employer/manage-jobs" className="px-3 py-1.5 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-teal-500 hover:text-white transition text-sm font-medium whitespace-nowrap">
                                 My Jobs
                             </a>
-                            <a href="/new-job" className="px-3 py-1.5 text-white rounded-lg bg-[#4F39F6] hover:opacity-80 transition text-sm font-medium whitespace-nowrap">
+                            <a href="/employer/new-job" className="px-3 py-1.5 text-white rounded-lg bg-[#4F39F6] hover:opacity-80 transition text-sm font-medium whitespace-nowrap">
                                 Post Jobs
                             </a>
                         </nav>
@@ -45,12 +45,12 @@ export const EmployerDashboardNav: React.FC<HeaderProps> = ({
 
                         {/* User Profile Section */}
                         <div className="flex items-center gap-2 shrink-0">
-                            <User className="w-4 h-4 text-gray-500" />
+                            <Building2 className="w-5 h-6 text-gray-500" />
                             <button className="text-gray-600 hover:text-gray-900">
-                                <span className="text-sm text-gray-800 font-medium ml-2">{userName}</span>
+                                <span className="text-md text-gray-800 font-medium ml-2">{userName}</span>
                             </button>
                             <button className="p-1 rounded-md text-gray-800 hover:bg-teal-500 hover:text-white transition ml-1">
-                                <LogOut className="w-4 h-4" />
+                                <LogOut className="w-5 h-6" />
                             </button>
                         </div>
                     </div>
@@ -79,10 +79,10 @@ export const EmployerDashboardNav: React.FC<HeaderProps> = ({
                         <a href="/employer/dashboard" className="px-3 py-1.5 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-teal-500 hover:text-white transition text-sm font-medium whitespace-nowrap">
                             Dashboard
                         </a>
-                        <a href="/manage-jobs" className="px-3 py-1.5 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-teal-500 hover:text-white transition text-sm font-medium whitespace-nowrap">
+                        <a href="/employer/manage-jobs" className="px-3 py-1.5 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-teal-500 hover:text-white transition text-sm font-medium whitespace-nowrap">
                             My Jobs
                         </a>
-                        <a href="/new-job" className="px-3 py-1.5 text-white rounded-lg bg-[#4F39F6] hover:opacity-80 transition text-sm font-medium whitespace-nowrap">
+                        <a href="/employer/new-job" className="px-3 py-1.5 text-white rounded-lg bg-[#4F39F6] hover:opacity-80 transition text-sm font-medium whitespace-nowrap">
                             Post Jobs
                         </a>
                     </div>
@@ -91,7 +91,7 @@ export const EmployerDashboardNav: React.FC<HeaderProps> = ({
                         <div className="flex items-center">
                             <div className="flex-shrink-0">
                                 <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
-                                    <User className="h-6 w-6 text-gray-500" />
+                                    <Building2 className="h-6 w-6 text-gray-500" />
                                 </div>
                             </div>
                             <div className="ml-3">

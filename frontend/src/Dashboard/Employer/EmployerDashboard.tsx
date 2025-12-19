@@ -5,6 +5,8 @@ import { Briefcase, FileSliders, TrendingUp, Users } from "lucide-react"
 import { ApplicationStatusBreakdown } from "../JobSeeker/components/ApplicationStatusBreakdown"
 import ActionButton from "./component/ActionButton"
 import RecentlyPostedJobs from "./component/RecentlyPostedJobs"
+import { Link } from "react-router-dom";
+
 
 
 const EmployerDashboard = () => {
@@ -59,9 +61,22 @@ const EmployerDashboard = () => {
                 <h1 className="font-semibold text-black/80">Quick Actions</h1>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 md:w-fit mt-8 ">
-                    <ActionButton className="bg-[#4F46E5] text-white font-semibold" label="Post New Job"/>
-                    <ActionButton className="border border-gray-200" label="Manage Jobs"/>
-                    <ActionButton className="border border-gray-200" label="Edit Profile"/>
+                    <Link
+                        to="/employer/new-job"
+                        >
+                        <ActionButton className="bg-[#4F46E5] text-white rounded-lg hover:bg-teal-500 hover:text-white transition text-sm whitespace-nowrap" label="Post New Job"/>
+                    </Link>
+                    <Link
+                        to="/employer/new-job"
+                        >
+                        <ActionButton className="rounded-lg hover:bg-teal-500 hover:text-white transition text-sm whitespace-nowrap border border-gray-200" 
+                        label="Manage Jobs"/>
+                    </Link>
+                    <Link
+                        to="/employer/edit-profile"
+                        >
+                        <ActionButton className="rounded-lg hover:bg-teal-500 hover:text-white transition text-sm whitespace-nowrap border border-gray-200" label="Edit Profile" />
+                    </Link>
                 </div>
             </section>
 

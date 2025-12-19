@@ -13,6 +13,8 @@ import EmployerDashboard from "./Dashboard/Employer/EmployerDashboard";
 import EmployerLayout from "./Dashboard/Employer/Layout/EmployerLayout";
 import EmployerJobsPage from "./Dashboard/Employer/EmployerJobsPage";
 import PostNewJob from "./Dashboard/Employer/PostNewJob";
+import EditProfile from "./Dashboard/Employer/EditProfile";
+import Bookmarks from "./Bookmarks/Bookmarks";
 
 function App() {
   const routes = [
@@ -25,13 +27,8 @@ function App() {
     { path: "/dashboard", element: <JobSeekerDashboard /> },
     { path: "/applications", element: <MyApplications /> },
 
-    //employer routes
-    {
-      path: "/bookmarks",
-      element: (
-        <div className="p-20 text-center">Bookmarks Page Coming Soon</div>
-      ),
-    },
+    //jobseeker routes
+    { path: "/bookmarks", element: < Bookmarks/>,},
 
     // Employer routes
     {
@@ -42,6 +39,7 @@ function App() {
         { path: "dashboard", element: <EmployerDashboard /> },
         { path: "manage-jobs", element: <EmployerJobsPage /> },
         { path: "new-job", element: <PostNewJob /> },
+        { path: "edit-profile", element: <EditProfile /> },
       ],
     },
   ];

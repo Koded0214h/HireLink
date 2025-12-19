@@ -5,7 +5,7 @@ import { FileText, TrendingUp, Bookmark, Briefcase } from 'lucide-react';
 import { StatCard } from './components/StatCard';
 import { ApplicationStatusBreakdown } from './components/ApplicationStatusBreakdown';
 import { RecentApplications } from './components/RecentApplications';
-import { Header } from '../../Components/JobSeekerHeader';
+import { Header } from '../../Components/Header';
 import { Footer} from '../../Components/Footer';
 import type { DashboardStats, StatusBreakdown, Application } from '../types';
 
