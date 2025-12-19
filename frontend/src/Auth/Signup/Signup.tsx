@@ -29,7 +29,8 @@ const Signup: React.FC = () => {
     const userPayload =
       userType === "employer"
         ? {
-            name: companyName,
+            firstName: companyName,
+            lastName: "Null",
             email,
             password,
             role: "employer",
