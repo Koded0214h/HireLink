@@ -1,10 +1,11 @@
-# HireLink 🚀
+# HireLink
 
-HireLink is a full-stack job recruitment platform designed to connect job seekers with potential employers. It features secure authentication, comprehensive profile management, and streamlined job application workflows.
+HireLink is a job recruitment platform designed to connect job seekers with potential employers. It features secure authentication, comprehensive profile management, and streamlined job application workflows.
 
 ## 🛠 Tech Stack
 
 * **Backend:** Node.js, Express.js, TypeScript
+* **Frontend:** React.js TailwindCSS, TypeScript
 * **Database:** PostgreSQL (via Neon), Sequelize ORM
 * **Authentication:** JWT (JSON Web Tokens)
 * **Deployment:** Render
@@ -34,15 +35,19 @@ Follow these steps to set up the project locally on your machine.
 ```bash
 git clone [https://github.com/Koded0214h/HireLink.git](https://github.com/Koded0214h/HireLink.git)
 cd HireLink
+```
 
 2. Install Dependencies
 
+```bash
 npm install
+```
 
 3. Configure Environment Variables
 
 For Local Development (Standard):
 
+```bash
 PORT=5000
 NODE_ENV=development
 JWT_SECRET=your_super_secret_key_here
@@ -55,22 +60,29 @@ DATABASE_PORT=5432
 For Production / Cloud DB: If you want to run locally but connect to the Neon cloud database:
 
 DATABASE_URL="postgres://neondb_owner:password@pa-hot-frog.us-west-1.aws.neon.tech/neondb?sslmode=require"
+```
 
 4. Database Setup & Migration
 
+```bash
 npx sequelize-cli db:migrate
+```
 
 5. Build and Run
 
 Development Mode:
 
+```bash
 npm run dev
 npx nodemon
+```
 
 Production Build:
 
+```bash
 npm run build
 npm start
+```
 
 📡 API Endpoints
 
